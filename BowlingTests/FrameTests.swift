@@ -26,6 +26,19 @@ class FrameTests: XCTestCase {
         XCTAssertNil(frame.roll2)
     }
     
+    func test_1stRoll_isLimitedBy10() {
+        let frame = Frame(roll1: 15)
+        
+        XCTAssertEqual(10, frame.roll1)
+    }
+    
+    func test_2ndRoll_isLimitedByTotal10() {
+        var frame = Frame(roll1: 6)
+        frame.roll2 = 5
+        
+        XCTAssertEqual(4, frame.roll2)
+    }
+    
     // MARK: - Frame ending
     func test_whenBothRollArePerformed_thenFrameIsFinished() {
         var frame = Frame(roll1: 1)
