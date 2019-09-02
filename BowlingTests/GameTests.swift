@@ -11,8 +11,9 @@ import XCTest
 
 class GameTests: XCTestCase {
     
-    
-    
+    func test_initialScoreIsZero() {
+        XCTAssertEqual(0, game.score)
+    }
     
     private var game: Game!
     override func setUp() {
