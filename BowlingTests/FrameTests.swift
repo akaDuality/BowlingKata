@@ -75,4 +75,10 @@ class FrameTests: XCTestCase {
         
         XCTAssertEqual(10, frame.score)
     }
+    
+    func test_whenStrike_SpareIsFalse() {
+        let frame = Frame(roll1: 10)
+        
+        XCTAssertFalse(frame.isSpare)
+    }
 }
