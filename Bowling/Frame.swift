@@ -17,6 +17,6 @@ struct Frame {
     }
     
     var isFinished: Bool {
-        return true
+        return roll2 != nil
     }
 }

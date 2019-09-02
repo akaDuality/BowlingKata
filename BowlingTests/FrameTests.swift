@@ -31,4 +31,10 @@ class FrameTests: XCTestCase {
         
         XCTAssertTrue(frame.isFinished)
     }
+    
+    func test_oneRollIsPerformed_thenFrameIsNotFinished() {
+        let frame = Frame(roll1: 1)
+        
+        XCTAssertFalse(frame.isFinished)
+    }
 }
