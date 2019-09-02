@@ -82,6 +82,12 @@ class GameTests: XCTestCase {
         XCTAssertFalse(game.isFinished)
     }
     
+    func test_when10StrikesArePerformed_gameIsFinished() {
+        roll(10, times: 10)
+        
+        XCTAssertTrue(game.isFinished)
+    }
+    
     // MARK: - DSL
     private func strike() {
         game.roll(10)
