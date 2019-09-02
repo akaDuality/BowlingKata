@@ -36,9 +36,27 @@ struct Frame {
         return roll1 == maxScore
     }
     
+    var type: ScoreType {
+        if isStrike {
+            return .strike
+        }
+        
+        if isSpare {
+            return .spare
+        }
+        
+        return .regular
+    }
+    
     var score: Int {
         return roll1 + (roll2 ?? 0)
     }
     
     private let maxScore = 10
+    
+    enum ScoreType {
+        case regular
+        case spare
+        case strike
+    }
 }

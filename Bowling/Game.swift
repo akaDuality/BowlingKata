@@ -16,12 +16,13 @@ class Game {
             score += frame.score
             
             if let nextFrame = self.frame(after: index) {
-                if frame.isSpare {
+                switch frame.type {
+                case .spare:
                     score += nextFrame.roll1
-                }
-                
-                if frame.isStrike {
+                case .strike:
                     score += nextFrame.score
+                case .regular:
+                    break // Do nothing
                 }
             }
         }
