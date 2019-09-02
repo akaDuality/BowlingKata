@@ -10,46 +10,41 @@ import Foundation
 
 class Game {
     
-    private var rolls: [Int] = []
+    var score: Int = 0
     
-    func roll2(_ pins: Int) {
-        score += pins
+    func roll(_ pins: Int) {
+        let lastFrame = add(pins)
         
-        rolls.append(pins)
-        if rolls.count > 2 {
-            let i = rolls.count - 1
-            let isFirstRollInFrame = i % 2 == 0
-            if isFirstRollInFrame {
-                let isSpare = rolls[i-1] + rolls[i-2] == 10
-                if isSpare {
+        score += pins
+        if let previousFrame = previousFrame {
+            if previousFrame.isSpare {
+                if !lastFrame.isFinished {
                     score += pins
                 }
             }
+        }
+    }
+    
+    private var previousFrame: Frame? {
+        guard frames.count > 1 else { return nil }
+        
+        let lastIndex = frames.count - 1
+        let previousFrame = frames[lastIndex - 1]
+        return previousFrame
+    }
+    
+    private func add(_ pins: Int) -> Frame {
+        if var lastFrame = frames.last, !lastFrame.isFinished {
+            lastFrame.roll2 = pins
+            frames[frames.count - 1] = lastFrame
+            return lastFrame
+        } else {
+            let frame = Frame(roll1: pins)
+            frames.append(frame)
+            
+            return frame
         }
     }
     
     private var frames: [Frame] = []
-    
-    func roll(_ pins: Int) {
-        if var lastFrame = frames.last, !lastFrame.isFinished {
-            lastFrame.roll2 = pins
-            frames[frames.count - 1] = lastFrame
-        } else {
-            let frame = Frame(roll1: pins)
-            frames.append(frame)
-        }
-        
-        score += pins
-        if frames.count > 1 {
-            let isFirstRollInFrame = frames.last!.roll2 == nil
-            if isFirstRollInFrame {
-                let previousFrame = frames[frames.count - 2]
-                if previousFrame.isSpare {
-                    score += pins
-                }
-            }
-        }
-    }
-    
-    var score: Int = 0
 }
