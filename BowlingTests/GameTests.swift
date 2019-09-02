@@ -71,17 +71,13 @@ class GameTests: XCTestCase {
     }
     
     func test_when20RegularRollsArePerformed_gameIsFinished() {
-        for _ in 0..<20 {
-            game.roll(1)
-        }
+        roll(1, times: 20)
         
         XCTAssertTrue(game.isFinished)
     }
     
     func test_when19RegularRollsArePerformed_gameIsNotFinished() {
-        for _ in 0..<19 {
-            game.roll(1)
-        }
+        roll(1, times: 19)
         
         XCTAssertFalse(game.isFinished)
     }
@@ -94,6 +90,12 @@ class GameTests: XCTestCase {
     private func spare(first: Int) {
         game.roll(first)
         game.roll(10-first)
+    }
+    
+    private func roll(_ pins: Int, times: Int) {
+        for _ in 0..<times {
+            game.roll(pins)
+        }
     }
     
     // MARK: - Setup
