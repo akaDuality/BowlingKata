@@ -16,11 +16,9 @@ class Game {
         let lastFrame = add(pins)
         
         score += pins
-        if let previousFrame = previousFrame {
-            if previousFrame.isSpare {
-                if !lastFrame.isFinished {
-                    score += pins
-                }
+        if previousFrame?.isSpare ?? false {
+            if !lastFrame.isFinished {
+                score += pins
             }
         }
     }
