@@ -29,24 +29,16 @@ class GameTests: XCTestCase {
     }
     
     func test_whenTwoRollesAre10InSum_isSpare_thenNextRollScoredTwice() {
-        // Spare
-        game.roll(4)
-        game.roll(6)
+        spare(first: 4)
         
-        // Next roll
         game.roll(6)
         
         XCTAssertEqual(22, game.score)
     }
     
     func test_twoSparesInRow_summsRight() {
-        // Spare
-        game.roll(4)
-        game.roll(6)
-        
-        // Next spare
-        game.roll(6)
-        game.roll(4)
+        spare(first: 4)
+        spare(first: 6)
         
         game.roll(2)
         
@@ -54,17 +46,17 @@ class GameTests: XCTestCase {
     }
     
     func test_twoEqualSparesInRow_notInterfere() {
-        // Spare
-        game.roll(4)
-        game.roll(6)
-        
-        // Next spare
-        game.roll(4)
-        game.roll(6)
+        spare(first: 4)
+        spare(first: 4)
         
         game.roll(2)
         
         XCTAssertEqual(22 + 4 + 2, game.score)
+    }
+    
+    private func spare(first: Int) {
+        game.roll(first)
+        game.roll(10-first)
     }
     
     private var game: Game!
