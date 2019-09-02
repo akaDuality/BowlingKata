@@ -104,12 +104,20 @@ class GameTests: XCTestCase {
         XCTAssertEqual(18 + 10 + 4, game.score)
     }
     
+    func test_whenLastRollIsSpare_additionalRollIsAllowed() {
+        roll(1, times: 18) // Game ends here
+        spare()
+        game.roll(4)
+        
+        XCTAssertEqual(18 + 10 + 4, game.score)
+    }
+    
     // MARK: - DSL
     private func strike() {
         game.roll(10)
     }
     
-    private func spare(first: Int) {
+    private func spare(first: Int = 4) {
         game.roll(first)
         game.roll(10-first)
     }

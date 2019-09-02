@@ -19,7 +19,7 @@ class Game {
             
             switch frame.type {
             case .spare:
-                score += nextFrame?.roll1 ?? 0
+                score += nextFrame?.roll1 ?? additionallRoll ?? 0
             case .strike:
                 score += nextFrame?.score ?? additionallRoll ?? 0
             case .regular:
@@ -32,7 +32,8 @@ class Game {
     
     func roll(_ pins: Int) {
         if isFinished {
-            if frames.last?.isStrike ?? false {
+            if frames.last?.isStrike ?? false
+                || frames.last?.isSpare ?? false {
                 additionallRoll = pins
             }
         } else {
