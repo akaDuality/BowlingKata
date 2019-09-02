@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1302AF8B231D1C2800BC45FD /* Bowling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1302AF81231D1C2800BC45FD /* Bowling.framework */; };
-		1302AF90231D1C2800BC45FD /* BowlingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AF8F231D1C2800BC45FD /* BowlingTests.swift */; };
 		1302AF92231D1C2800BC45FD /* Bowling.h in Headers */ = {isa = PBXBuildFile; fileRef = 1302AF84231D1C2800BC45FD /* Bowling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1302AF9C231D1C4D00BC45FD /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AF9B231D1C4D00BC45FD /* Game.swift */; };
+		1302AF9F231D1C7100BC45FD /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AF9E231D1C7100BC45FD /* GameTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +28,10 @@
 		1302AF84231D1C2800BC45FD /* Bowling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bowling.h; sourceTree = "<group>"; };
 		1302AF85231D1C2800BC45FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1302AF8A231D1C2800BC45FD /* BowlingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BowlingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1302AF8F231D1C2800BC45FD /* BowlingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BowlingTests.swift; sourceTree = "<group>"; };
 		1302AF91231D1C2800BC45FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1302AF9B231D1C4D00BC45FD /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		1302AF9D231D1C7100BC45FD /* BowlingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BowlingTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		1302AF9E231D1C7100BC45FD /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				1302AF84231D1C2800BC45FD /* Bowling.h */,
+				1302AF9B231D1C4D00BC45FD /* Game.swift */,
 				1302AF85231D1C2800BC45FD /* Info.plist */,
 			);
 			path = Bowling;
@@ -80,8 +84,9 @@
 		1302AF8E231D1C2800BC45FD /* BowlingTests */ = {
 			isa = PBXGroup;
 			children = (
-				1302AF8F231D1C2800BC45FD /* BowlingTests.swift */,
 				1302AF91231D1C2800BC45FD /* Info.plist */,
+				1302AF9E231D1C7100BC45FD /* GameTests.swift */,
+				1302AF9D231D1C7100BC45FD /* BowlingTests-Bridging-Header.h */,
 			);
 			path = BowlingTests;
 			sourceTree = "<group>";
@@ -148,9 +153,11 @@
 				TargetAttributes = {
 					1302AF80231D1C2800BC45FD = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 					1302AF89231D1C2800BC45FD = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -194,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1302AF9C231D1C4D00BC45FD /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1302AF90231D1C2800BC45FD /* BowlingTests.swift in Sources */,
+				1302AF9F231D1C7100BC45FD /* GameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +349,7 @@
 		1302AF96231D1C2800BC45FD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -357,6 +366,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.akaDuality.Bowling;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -365,6 +375,7 @@
 		1302AF97231D1C2800BC45FD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -389,6 +400,8 @@
 		1302AF99231D1C2800BC45FD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BowlingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -398,6 +411,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akaDuality.BowlingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BowlingTests/BowlingTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -406,6 +421,8 @@
 		1302AF9A231D1C2800BC45FD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BowlingTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -415,6 +432,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.akaDuality.BowlingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BowlingTests/BowlingTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
