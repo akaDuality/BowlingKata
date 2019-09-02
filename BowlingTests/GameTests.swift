@@ -55,12 +55,16 @@ class GameTests: XCTestCase {
     }
     
     func test_whenStike_thenNextFrameScoredTwice() {
-        game.roll(10)
+        strike()
         
         game.roll(4)
         game.roll(2)
         
         XCTAssertEqual(16 + 4 + 2, game.score)
+    }
+    
+    private func strike() {
+        game.roll(10)
     }
     
     private func spare(first: Int) {
