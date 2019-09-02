@@ -10,37 +10,38 @@ import Foundation
 
 class Game {
     
-    var score: Int = 0
-    
-    func roll(_ pins: Int) {
-        let lastFrame = add(pins)
-        
-        score += pins
-        if previousFrame?.isSpare ?? false {
-            if !lastFrame.isFinished {
-                score += pins
+    var score: Int {
+        var score = 0
+        for (index, frame) in frames.enumerated() {
+            score += frame.roll1 + (frame.roll2 ?? 0)
+            
+            if frame.isSpare {
+                if let nextFrame = self.frame(after: index) {
+                    score += nextFrame.roll1
+                }
             }
         }
-    }
-    
-    private var previousFrame: Frame? {
-        guard frames.count > 1 else { return nil }
         
-        let lastIndex = frames.count - 1
-        let previousFrame = frames[lastIndex - 1]
-        return previousFrame
+        return score
     }
     
-    private func add(_ pins: Int) -> Frame {
+    func roll(_ pins: Int) {
+        appendOrCreateFrame(pins)
+    }
+    
+    private func frame(after index: Int) -> Frame? {
+        let nextIndex = index + 1
+        guard nextIndex < frames.count else { return nil }
+        return frames[nextIndex]
+    }
+    
+    private func appendOrCreateFrame(_ pins: Int) {
         if var lastFrame = frames.last, !lastFrame.isFinished {
             lastFrame.roll2 = pins
             frames[frames.count - 1] = lastFrame
-            return lastFrame
         } else {
             let frame = Frame(roll1: pins)
             frames.append(frame)
-            
-            return frame
         }
     }
     
