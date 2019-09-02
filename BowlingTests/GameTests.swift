@@ -96,6 +96,14 @@ class GameTests: XCTestCase {
         XCTAssertEqual(20, game.score)
     }
     
+    func test_whenLastRollIsStrike_additionalRollIsAllowed() {
+        roll(1, times: 18) // Game ends here
+        strike()
+        game.roll(4)
+        
+        XCTAssertEqual(18 + 10 + 4, game.score)
+    }
+    
     // MARK: - DSL
     private func strike() {
         game.roll(10)

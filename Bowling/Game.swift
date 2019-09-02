@@ -15,15 +15,15 @@ class Game {
         for (index, frame) in frames.enumerated() {
             score += frame.score
             
-            if let nextFrame = self.frame(after: index) {
-                switch frame.type {
-                case .spare:
-                    score += nextFrame.roll1
-                case .strike:
-                    score += nextFrame.score
-                case .regular:
-                    break // Do nothing
-                }
+            let nextFrame = self.frame(after: index)
+            
+            switch frame.type {
+            case .spare:
+                score += nextFrame?.roll1 ?? 0
+            case .strike:
+                score += nextFrame?.score ?? additionallRoll ?? 0
+            case .regular:
+                break // Do nothing
             }
         }
         
@@ -31,13 +31,20 @@ class Game {
     }
     
     func roll(_ pins: Int) {
-        guard !isFinished else { return }
-        appendOrCreateFrame(pins)
+        if isFinished {
+            if frames.last?.isStrike ?? false {
+                additionallRoll = pins
+            }
+        } else {
+            appendOrCreateFrame(pins)
+        }
     }
     
     var isFinished: Bool {
         return frames.count == 10 && (frames.last?.isFinished ?? false)
     }
+    
+    private var additionallRoll: Int?
     
     private func frame(after index: Int) -> Frame? {
         let nextIndex = index + 1
