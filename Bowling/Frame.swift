@@ -15,4 +15,8 @@ struct Frame {
     init(roll1: Int) {
         self.roll1 = roll1
     }
+    
+    var isFinished: Bool {
+        return true
+    }
 }

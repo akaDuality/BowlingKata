@@ -24,4 +24,11 @@ class FrameTests: XCTestCase {
         
         XCTAssertNil(frame.roll2)
     }
+    
+    func test_whenBothRollArePerformed_thenFrameIsFinished() {
+        var frame = Frame(roll1: 1)
+        frame.roll2 = 2
+        
+        XCTAssertTrue(frame.isFinished)
+    }
 }
