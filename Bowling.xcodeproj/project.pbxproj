@@ -11,6 +11,8 @@
 		1302AF92231D1C2800BC45FD /* Bowling.h in Headers */ = {isa = PBXBuildFile; fileRef = 1302AF84231D1C2800BC45FD /* Bowling.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1302AF9C231D1C4D00BC45FD /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AF9B231D1C4D00BC45FD /* Game.swift */; };
 		1302AF9F231D1C7100BC45FD /* GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AF9E231D1C7100BC45FD /* GameTests.swift */; };
+		1302AFA1231D30C700BC45FD /* FrameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AFA0231D30C700BC45FD /* FrameTests.swift */; };
+		1302AFA3231D30CE00BC45FD /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AFA2231D30CE00BC45FD /* Frame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +34,8 @@
 		1302AF9B231D1C4D00BC45FD /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		1302AF9D231D1C7100BC45FD /* BowlingTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BowlingTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		1302AF9E231D1C7100BC45FD /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
+		1302AFA0231D30C700BC45FD /* FrameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameTests.swift; sourceTree = "<group>"; };
+		1302AFA2231D30CE00BC45FD /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 			children = (
 				1302AF84231D1C2800BC45FD /* Bowling.h */,
 				1302AF9B231D1C4D00BC45FD /* Game.swift */,
+				1302AFA2231D30CE00BC45FD /* Frame.swift */,
 				1302AF85231D1C2800BC45FD /* Info.plist */,
 			);
 			path = Bowling;
@@ -86,6 +91,7 @@
 			children = (
 				1302AF91231D1C2800BC45FD /* Info.plist */,
 				1302AF9E231D1C7100BC45FD /* GameTests.swift */,
+				1302AFA0231D30C700BC45FD /* FrameTests.swift */,
 				1302AF9D231D1C7100BC45FD /* BowlingTests-Bridging-Header.h */,
 			);
 			path = BowlingTests;
@@ -202,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1302AF9C231D1C4D00BC45FD /* Game.swift in Sources */,
+				1302AFA3231D30CE00BC45FD /* Frame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1302AF9F231D1C7100BC45FD /* GameTests.swift in Sources */,
+				1302AFA1231D30C700BC45FD /* FrameTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
