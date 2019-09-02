@@ -14,17 +14,7 @@ class Game {
         var score = 0
         for (index, frame) in frames.enumerated() {
             score += frame.score
-            
-            let nextFrame = self.frame(after: index)
-            
-            switch frame.type {
-            case .spare:
-                score += nextFrame?.roll1 ?? additionallRoll ?? 0
-            case .strike:
-                score += nextFrame?.score ?? additionallRoll ?? 0
-            case .regular:
-                break // Do nothing
-            }
+            score += additionalScoresForNextFrame(after: index)
         }
         
         return score
@@ -32,8 +22,8 @@ class Game {
     
     func roll(_ pins: Int) {
         if isFinished {
-            if frames.last?.isStrike ?? false
-                || frames.last?.isSpare ?? false {
+            let lastFrame = frames.last!
+            if lastFrame.isStrike || lastFrame.isSpare {
                 additionallRoll = pins
             }
         } else {
@@ -42,7 +32,7 @@ class Game {
     }
     
     var isFinished: Bool {
-        return frames.count == 10 && (frames.last?.isFinished ?? false)
+        return frames.count == 10 && frames.last!.isFinished
     }
     
     private var additionallRoll: Int?
@@ -60,6 +50,19 @@ class Game {
         } else {
             let frame = Frame(roll1: pins)
             frames.append(frame)
+        }
+    }
+    
+    private func additionalScoresForNextFrame(after index: Int) -> Int {
+        let nextFrame = self.frame(after: index)
+        
+        switch frames[index].type {
+        case .spare:
+            return nextFrame?.roll1 ?? additionallRoll ?? 0
+        case .strike:
+            return nextFrame?.score ?? additionallRoll ?? 0
+        case .regular:
+            return 0
         }
     }
     
