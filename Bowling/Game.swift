@@ -18,8 +18,10 @@ class Game {
         rolls.append(pins)
         if rolls.count > 2 {
             let i = rolls.count - 1
-            if rolls[i-1] + rolls[i-2] == 10 {
-                score += pins
+            if i % 2 == 0 {
+                if rolls[i-1] + rolls[i-2] == 10 {
+                    score += pins
+                }
             }
         }
     }
