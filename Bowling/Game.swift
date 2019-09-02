@@ -13,11 +13,17 @@ class Game {
     var score: Int {
         var score = 0
         for (index, frame) in frames.enumerated() {
-            score += frame.roll1 + (frame.roll2 ?? 0)
+            score += frame.score
             
             if frame.isSpare {
                 if let nextFrame = self.frame(after: index) {
                     score += nextFrame.roll1
+                }
+            }
+            
+            if frame.isStrike {
+                if let nextFrame = self.frame(after: index) {
+                    score += nextFrame.score
                 }
             }
         }
