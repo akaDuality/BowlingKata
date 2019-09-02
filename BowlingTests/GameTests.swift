@@ -15,6 +15,12 @@ class GameTests: XCTestCase {
         XCTAssertEqual(0, game.score)
     }
     
+    func test_whenRollIsPerformed_thenScoreEqualToHatPins() {
+        game.roll(5)
+        
+        XCTAssertEqual(5, game.score)
+    }
+    
     private var game: Game!
     override func setUp() {
         game = Game()
