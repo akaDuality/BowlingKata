@@ -60,4 +60,19 @@ class FrameTests: XCTestCase {
         
         XCTAssertTrue(frame.isFinished)
     }
+    
+    // MARK: - Frame score
+    func test_frameScoreIsSummOfBothRolls() {
+        var frame = Frame(roll1: 2)
+        frame.roll2 = 4
+        
+        XCTAssertEqual(6, frame.score)
+    }
+    
+    func test_canNotRoll2ndTimeAfterStrike() {
+        var frame = Frame(roll1: 10)
+        frame.roll2 = 4
+        
+        XCTAssertEqual(10, frame.score)
+    }
 }
