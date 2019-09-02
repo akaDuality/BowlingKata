@@ -64,6 +64,27 @@ class GameTests: XCTestCase {
         
         XCTAssertEqual(16 + 4 + 2, game.score)
     }
+
+    // MARK: Game ending
+    func test_whenGameIsStarted_isNotFinished() {
+        XCTAssertFalse(game.isFinished)
+    }
+    
+    func test_when20RegularRollsArePerformed_gameIsFinished() {
+        for _ in 0..<20 {
+            game.roll(1)
+        }
+        
+        XCTAssertTrue(game.isFinished)
+    }
+    
+    func test_when19RegularRollsArePerformed_gameIsNotFinished() {
+        for _ in 0..<19 {
+            game.roll(1)
+        }
+        
+        XCTAssertFalse(game.isFinished)
+    }
     
     // MARK: - DSL
     private func strike() {

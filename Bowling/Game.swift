@@ -34,6 +34,10 @@ class Game {
         appendOrCreateFrame(pins)
     }
     
+    var isFinished: Bool {
+        return frames.count == 10 && (frames.last?.isFinished ?? false)
+    }
+    
     private func frame(after index: Int) -> Frame? {
         let nextIndex = index + 1
         guard nextIndex < frames.count else { return nil }
