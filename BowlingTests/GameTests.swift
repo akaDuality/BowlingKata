@@ -21,6 +21,13 @@ class GameTests: XCTestCase {
         XCTAssertEqual(5, game.score)
     }
     
+    func test_whenTwoRollsArePerformed_scoreIsEqualToSumm() {
+        game.roll(5)
+        game.roll(4)
+        
+        XCTAssertEqual(9, game.score)
+    }
+    
     private var game: Game!
     override func setUp() {
         game = Game()

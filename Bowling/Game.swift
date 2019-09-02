@@ -11,7 +11,7 @@ import Foundation
 class Game {
     
     func roll(_ pins: Int) {
-        score = pins
+        score += pins
     }
     
     var score: Int = 0
