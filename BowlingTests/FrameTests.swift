@@ -37,4 +37,11 @@ class FrameTests: XCTestCase {
         
         XCTAssertFalse(frame.isFinished)
     }
+    
+    func test_whenBothRollesScore10Points_thenItIsSpare() {
+        var frame = Frame(roll1: 4)
+        frame.roll2 = 6
+        
+        XCTAssertTrue(frame.isSpare)
+    }
 }
