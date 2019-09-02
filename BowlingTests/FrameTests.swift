@@ -12,9 +12,16 @@ import XCTest
 class FrameTests: XCTestCase {
 
     func test_frameContainsTwoRolls() {
-        let frame = Frame(roll1: 1, roll2: 2)
+        var frame = Frame(roll1: 1)
+        frame.roll2 = 2
         
         XCTAssertEqual(1, frame.roll1)
         XCTAssertEqual(2, frame.roll2)
+    }
+    
+    func test_2ndRollIsOptional() {
+        let frame = Frame(roll1: 1)
+        
+        XCTAssertNil(frame.roll2)
     }
 }

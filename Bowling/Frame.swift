@@ -10,5 +10,9 @@ import Foundation
 
 struct Frame {
     var roll1: Int
-    var roll2: Int
+    var roll2: Int? = nil
+    
+    init(roll1: Int) {
+        self.roll1 = roll1
+    }
 }
