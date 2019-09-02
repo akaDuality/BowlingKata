@@ -88,6 +88,14 @@ class GameTests: XCTestCase {
         XCTAssertTrue(game.isFinished)
     }
     
+    func test_when20RegularRollsArePerformed_newRollDoesNotAffectScore() {
+        roll(1, times: 20) // Game ends here
+        
+        game.roll(1)
+        
+        XCTAssertEqual(20, game.score)
+    }
+    
     // MARK: - DSL
     private func strike() {
         game.roll(10)

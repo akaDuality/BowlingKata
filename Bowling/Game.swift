@@ -31,6 +31,7 @@ class Game {
     }
     
     func roll(_ pins: Int) {
+        guard !isFinished else { return }
         appendOrCreateFrame(pins)
     }
     
