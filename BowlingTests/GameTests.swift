@@ -28,6 +28,17 @@ class GameTests: XCTestCase {
         XCTAssertEqual(9, game.score)
     }
     
+    func test_whenTwoRollesAre10InSum_isSpare_thenNextRollScoredTwice() {
+        // Spare
+        game.roll(4)
+        game.roll(6)
+        
+        // Next roll
+        game.roll(6)
+        
+        XCTAssertEqual(22, game.score)
+    }
+    
     private var game: Game!
     override func setUp() {
         game = Game()

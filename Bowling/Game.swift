@@ -10,8 +10,18 @@ import Foundation
 
 class Game {
     
+    private var rolls: [Int] = []
+    
     func roll(_ pins: Int) {
         score += pins
+        
+        rolls.append(pins)
+        if rolls.count > 2 {
+            let i = rolls.count - 1
+            if rolls[i-1] + rolls[i-2] == 10 {
+                score += pins
+            }
+        }
     }
     
     var score: Int = 0
