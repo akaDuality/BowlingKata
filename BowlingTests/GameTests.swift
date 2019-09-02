@@ -28,6 +28,7 @@ class GameTests: XCTestCase {
         XCTAssertEqual(9, game.score)
     }
     
+    // MARK: - Spare
     func test_whenTwoRollesAre10InSum_isSpare_thenNextRollScoredTwice() {
         spare(first: 4)
         
@@ -54,6 +55,7 @@ class GameTests: XCTestCase {
         XCTAssertEqual(22 + 4 + 2, game.score)
     }
     
+    // MARK: - Strike
     func test_whenStike_thenNextFrameScoredTwice() {
         strike()
         
@@ -63,6 +65,7 @@ class GameTests: XCTestCase {
         XCTAssertEqual(16 + 4 + 2, game.score)
     }
     
+    // MARK: - DSL
     private func strike() {
         game.roll(10)
     }
@@ -72,6 +75,7 @@ class GameTests: XCTestCase {
         game.roll(10-first)
     }
     
+    // MARK: - Setup
     private var game: Game!
     override func setUp() {
         game = Game()

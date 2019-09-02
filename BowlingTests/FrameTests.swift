@@ -48,19 +48,6 @@ class FrameTests: XCTestCase {
         XCTAssertTrue(frame.isSpare)
     }
     
-    // MARK: - Strike
-    func test_when1stRollIs10_thenIsIsStrike() {
-        let frame = Frame(roll1: 10)
-        
-        XCTAssertTrue(frame.isStrike)
-    }
-    
-    func test_whenStrike_thenFrameIsFinished() {
-        let frame = Frame(roll1: 10)
-        
-        XCTAssertTrue(frame.isFinished)
-    }
-    
     // MARK: - Frame score
     func test_frameScoreIsSummOfBothRolls() {
         var frame = Frame(roll1: 2)
@@ -68,17 +55,31 @@ class FrameTests: XCTestCase {
         
         XCTAssertEqual(6, frame.score)
     }
+}
+
+class FrameStrikeTest: XCTestCase {
     
-    func test_canNotRoll2ndTimeAfterStrike() {
-        var frame = Frame(roll1: 10)
+    var frame: Frame!
+    
+    override func setUp() {
+        frame = Frame(roll1: 10)
+    }
+    
+    func test_when1stRollIs10_thenIsIsStrike() {
+        XCTAssertTrue(frame.isStrike)
+    }
+    
+    func test_thenFrameIsFinished() {
+        XCTAssertTrue(frame.isFinished)
+    }
+    
+    func test_canNotRoll2ndTime() {
         frame.roll2 = 4
         
         XCTAssertEqual(10, frame.score)
     }
     
-    func test_whenStrike_SpareIsFalse() {
-        let frame = Frame(roll1: 10)
-        
+    func test_spareIsFalse() {
         XCTAssertFalse(frame.isSpare)
     }
 }
