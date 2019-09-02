@@ -11,6 +11,7 @@ import XCTest
 
 class FrameTests: XCTestCase {
 
+    // MARK: - Rolls
     func test_frameContainsTwoRolls() {
         var frame = Frame(roll1: 1)
         frame.roll2 = 2
@@ -25,6 +26,7 @@ class FrameTests: XCTestCase {
         XCTAssertNil(frame.roll2)
     }
     
+    // MARK: - Frame ending
     func test_whenBothRollArePerformed_thenFrameIsFinished() {
         var frame = Frame(roll1: 1)
         frame.roll2 = 2
@@ -38,10 +40,24 @@ class FrameTests: XCTestCase {
         XCTAssertFalse(frame.isFinished)
     }
     
+    // MARK: - Spare
     func test_whenBothRollesScore10Points_thenItIsSpare() {
         var frame = Frame(roll1: 4)
         frame.roll2 = 6
         
         XCTAssertTrue(frame.isSpare)
+    }
+    
+    // MARK: - Strike
+    func test_when1stRollIs10_thenIsIsStrike() {
+        let frame = Frame(roll1: 10)
+        
+        XCTAssertTrue(frame.isStrike)
+    }
+    
+    func test_whenStrike_thenFrameIsFinished() {
+        let frame = Frame(roll1: 10)
+        
+        XCTAssertTrue(frame.isFinished)
     }
 }

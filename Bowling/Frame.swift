@@ -17,13 +17,17 @@ struct Frame {
     }
     
     var isFinished: Bool {
-        return roll2 != nil
+        return roll2 != nil || isStrike
     }
     
     var isSpare: Bool {
         guard let roll2 = roll2 else { return false }
         
         return roll1 + roll2 == maxScore
+    }
+    
+    var isStrike: Bool {
+        return roll1 == maxScore
     }
     
     private let maxScore = 10
