@@ -65,23 +65,18 @@ class Game {
     }
     
     private func additionalScoreForNextFrame(after index: Int) -> Int {
-        let nextFrame = self.frame(after: index)
+        let nextFrame = frame(after: index)
         
         switch frames[index].type {
         case .spare:
             return nextFrame?.roll1 ?? additionallRoll ?? 0
         case .strike:
-            if let nextFrame = nextFrame {
-                if nextFrame.isStrike {
-                    if let next2Frame = frame(after: index + 1) {
-                        return 10 + next2Frame.roll1
-                    } else {
-                        return 10 + (additionallRoll ?? 0)
-                    }
+            if let nextFrame = nextFrame, nextFrame.isStrike {
+                if let next2Frame = frame(after: index + 1) {
+                    return 10 + next2Frame.roll1
                 } else {
-                    return nextFrame.score
+                    return 10 + (additionallRoll ?? 0)
                 }
-                
             } else if (additionallRoll ?? 0) == 10 {
                 return 10 + (additionallRoll ?? 0)
             } else {
