@@ -71,9 +71,19 @@ class Game {
         case .spare:
             return nextFrame?.roll1 ?? additionallRoll ?? 0
         case .strike:
-            if nextFrame?.isStrike ?? false {
-                let next2Frame = frame(after: index + 1)
-                return 10 + (next2Frame?.roll1 ?? 0)
+            if let nextFrame = nextFrame {
+                if nextFrame.isStrike {
+                    if let next2Frame = frame(after: index + 1) {
+                        return 10 + next2Frame.roll1
+                    } else {
+                        return 10 + (additionallRoll ?? 0)
+                    }
+                } else {
+                    return nextFrame.score
+                }
+                
+            } else if (additionallRoll ?? 0) == 10 {
+                return 10 + (additionallRoll ?? 0)
             } else {
                 return nextFrame?.score ?? additionallRoll ?? 0
             }

@@ -56,7 +56,7 @@ class GameTests: XCTestCase {
     }
     
     // MARK: - Strike
-    func test_whenStike_thenNextFrameScoredTwice() {
+    func test_whenStike_thenNextTwoRollsScoredTwice() {
         strike()
         
         game.roll(4)
@@ -99,12 +99,6 @@ class GameTests: XCTestCase {
         XCTAssertFalse(game.isFinished)
     }
     
-    func test_when10StrikesArePerformed_gameIsFinished() {
-        roll(10, times: 10)
-        
-        XCTAssertTrue(game.isFinished)
-    }
-    
     func test_when20RegularRollsArePerformed_newRollDoesNotAffectScore() {
         roll(1, times: 20) // Game ends here
         
@@ -127,6 +121,13 @@ class GameTests: XCTestCase {
         game.roll(4)
         
         XCTAssertEqual(18 + 10 + 4, game.score)
+    }
+    
+    func test_whenAllRollsAreStrike_thenMaxScore() {
+        roll(10, times: 11)
+
+        XCTAssertTrue(game.isFinished)
+        XCTAssertEqual(300, game.score)
     }
 
     // MARK: - DSL
