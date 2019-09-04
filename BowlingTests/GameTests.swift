@@ -64,6 +64,14 @@ class GameTests: XCTestCase {
         
         XCTAssertEqual(16 + 4 + 2, game.score)
     }
+    
+    func test_when3StrikeInARow_FirstRollScores30Points_and2ndRollScored20Points() {
+        strike()
+        strike()
+        strike()
+        
+        XCTAssertEqual(30 + 20 + 10, game.score)
+    }
 
     // MARK: Game ending
     func test_whenGameIsStarted_isNotFinished() {
@@ -111,7 +119,7 @@ class GameTests: XCTestCase {
         
         XCTAssertEqual(18 + 10 + 4, game.score)
     }
-    
+
     // MARK: - DSL
     private func strike() {
         game.roll(10)

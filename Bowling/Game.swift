@@ -14,7 +14,7 @@ class Game {
         var score = 0
         for (index, frame) in frames.enumerated() {
             score += frame.score
-            score += additionalScoresForNextFrame(after: index)
+            score += additionalScoreForNextFrame(after: index)
         }
         
         return score
@@ -53,14 +53,19 @@ class Game {
         }
     }
     
-    private func additionalScoresForNextFrame(after index: Int) -> Int {
+    private func additionalScoreForNextFrame(after index: Int) -> Int {
         let nextFrame = self.frame(after: index)
         
         switch frames[index].type {
         case .spare:
             return nextFrame?.roll1 ?? additionallRoll ?? 0
         case .strike:
-            return nextFrame?.score ?? additionallRoll ?? 0
+            if nextFrame?.isStrike ?? false {
+                let next2Frame = frame(after: index + 1)
+                return 10 + (next2Frame?.roll1 ?? 0)
+            } else {
+                return nextFrame?.score ?? additionallRoll ?? 0
+            }
         case .regular:
             return 0
         }
