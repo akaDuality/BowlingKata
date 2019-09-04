@@ -21,7 +21,7 @@ class Game {
     }
     
     func roll(_ pins: Int) {
-        if isFinished {
+        if framesAreFinished {
             let lastFrame = frames.last!
             if lastFrame.isStrike || lastFrame.isSpare {
                 additionallRoll = pins
@@ -31,8 +31,19 @@ class Game {
         }
     }
     
-    var isFinished: Bool {
+    private var framesAreFinished: Bool {
         return frames.count == 10 && frames.last!.isFinished
+    }
+    
+    var isFinished: Bool {
+        if framesAreFinished {
+            if frames.last?.isStrike ?? false {
+                return additionallRoll != nil
+            } else {
+                return true
+            }
+        }
+        return false
     }
     
     private var additionallRoll: Int?

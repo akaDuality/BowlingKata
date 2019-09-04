@@ -72,6 +72,15 @@ class GameTests: XCTestCase {
         
         XCTAssertEqual(30 + 20 + 10, game.score)
     }
+    
+    func test_whenLastRollIsStrike_gameWaitsForAdditionalRoll() {
+        roll(1, times: 18)
+        strike()
+        
+        XCTAssertFalse(game.isFinished)
+        game.roll(10)
+        XCTAssertTrue(game.isFinished)
+    }
 
     // MARK: Game ending
     func test_whenGameIsStarted_isNotFinished() {
