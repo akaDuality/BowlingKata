@@ -6,7 +6,6 @@
 //  Copyright © 2019 akaDuality. All rights reserved.
 //
 
-import XCTest
 @testable import Bowling
 
 import Quick

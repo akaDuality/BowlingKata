@@ -9,52 +9,90 @@
 import XCTest
 @testable import Bowling
 
+import Quick
+import Nimble
+
+class GameSpec: QuickSpec {
+    override func spec() {
+        describe("game") {
+            var game: Game!
+            beforeEach {
+                game = Game()
+            }
+            
+            it("score starts from zero") {
+                expect(game.score) == 0
+            }
+            
+            context("when roll 5") {
+                beforeEach {
+                    game.roll(5)
+                }
+                
+                it("should set score to 5") {
+                    expect(game.score) == 5
+                }
+                
+                context("and roll 4") {
+                    it("should add roll to score") {
+                        game.roll(4)
+                        expect(game.score) == 9
+                    }
+                }
+            }
+            
+            context("when roll 2") {
+                beforeEach {
+                    game.roll(2)
+                }
+                context("and roll 8") {
+                    beforeEach {
+                        game.roll(8)
+                    }
+                    it("is spare and double next roll") {
+                        game.roll(4)
+                        expect(game.score) == 2 + 8 + 4 * 2
+                    }
+                    
+                    context("when next 2 roll also spare") {
+                        beforeEach {
+                            game.spare(first: 4)
+                        }
+                        
+                        it("should double 3rd and 5 rolls") {
+                            let score: Int = (2 + 8) + (4*2 + 6)
+                            expect(game.score).to(equal(score))
+                        }
+                        
+                        context("when roll 2") {
+                            beforeEach {
+                                game.roll(2)
+                            }
+                            
+                            it("should double") {
+                                let score: Int = (2 + 8) + (4*2 + 6) + 2*2
+                                expect(game.score).to(equal(score))
+                            }
+                        }
+                    }
+                    
+                    context("when roll same spare") {
+                        beforeEach {
+                            game.spare(first: 2)
+                        }
+                        
+                        it("should not find spare between 8 and 2") {
+                            let score: Int = (2 + 8) + (2*2 + 8)
+                            expect(game.score).to(equal(score))
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 class GameTests: XCTestCase {
-    
-    func test_initialScoreIsZero() {
-        XCTAssertEqual(0, game.score)
-    }
-    
-    func test_whenRollIsPerformed_thenScoreEqualToHatPins() {
-        game.roll(5)
-        
-        XCTAssertEqual(5, game.score)
-    }
-    
-    func test_whenTwoRollsArePerformed_scoreIsEqualToSumm() {
-        game.roll(5)
-        game.roll(4)
-        
-        XCTAssertEqual(9, game.score)
-    }
-    
-    // MARK: - Spare
-    func test_whenTwoRollesAre10InSum_isSpare_thenNextRollScoredTwice() {
-        spare(first: 4)
-        
-        game.roll(6)
-        
-        XCTAssertEqual(22, game.score)
-    }
-    
-    func test_twoSparesInRow_summsRight() {
-        spare(first: 4)
-        spare(first: 6)
-        
-        game.roll(2)
-        
-        XCTAssertEqual(22 + 6 + 2, game.score)
-    }
-    
-    func test_twoEqualSparesInRow_notInterfere() {
-        spare(first: 4)
-        spare(first: 4)
-        
-        game.roll(2)
-        
-        XCTAssertEqual(22 + 4 + 2, game.score)
-    }
-    
     // MARK: - Strike
     func test_whenStike_thenNextTwoRollsScoredTwice() {
         strike()
@@ -154,5 +192,12 @@ class GameTests: XCTestCase {
     
     override func tearDown() {
         game = nil
+    }
+}
+
+extension Game {
+    func spare(first: Int = 4) {
+        roll(first)
+        roll(10-first)
     }
 }
