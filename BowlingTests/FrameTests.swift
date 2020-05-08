@@ -9,90 +9,113 @@
 import XCTest
 @testable import Bowling
 
-class FrameTests: XCTestCase {
+import Quick
 
-    // MARK: - Rolls
-    func test_frameContainsTwoRolls() {
-        var frame = Frame(roll1: 1)
-        frame.roll2 = 2
-        
-        XCTAssertEqual(1, frame.roll1)
-        XCTAssertEqual(2, frame.roll2)
-    }
-    
-    func test_2ndRollIsOptional() {
-        let frame = Frame(roll1: 1)
-        
-        XCTAssertNil(frame.roll2)
-    }
-    
-    func test_1stRoll_isLimitedBy10() {
-        let frame = Frame(roll1: 15)
-        
-        XCTAssertEqual(10, frame.roll1)
-    }
-    
-    func test_2ndRoll_isLimitedByTotal10() {
-        var frame = Frame(roll1: 6)
-        frame.roll2 = 5
-        
-        XCTAssertEqual(4, frame.roll2)
-    }
-    
-    // MARK: - Frame ending
-    func test_whenBothRollArePerformed_thenFrameIsFinished() {
-        var frame = Frame(roll1: 1)
-        frame.roll2 = 2
-        
-        XCTAssertTrue(frame.isFinished)
-    }
-    
-    func test_oneRollIsPerformed_thenFrameIsNotFinished() {
-        let frame = Frame(roll1: 1)
-        
-        XCTAssertFalse(frame.isFinished)
-    }
-    
-    // MARK: - Spare
-    func test_whenBothRollesScore10Points_thenItIsSpare() {
-        var frame = Frame(roll1: 4)
-        frame.roll2 = 6
-        
-        XCTAssertTrue(frame.isSpare)
-    }
-    
-    // MARK: - Frame score
-    func test_frameScoreIsSummOfBothRolls() {
-        var frame = Frame(roll1: 2)
-        frame.roll2 = 4
-        
-        XCTAssertEqual(6, frame.score)
-    }
-}
+class FrameSpec: QuickSpec {
+    override func spec() {
+        describe("frame") {
+            var frame: Frame!
+            beforeEach {
+                frame = Frame(roll1: 4)
+            }
 
-class FrameStrikeTest: XCTestCase {
-    
-    var frame: Frame!
-    
-    override func setUp() {
-        frame = Frame(roll1: 10)
-    }
-    
-    func test_when1stRollIs10_thenIsIsStrike() {
-        XCTAssertTrue(frame.isStrike)
-    }
-    
-    func test_thenFrameIsFinished() {
-        XCTAssertTrue(frame.isFinished)
-    }
-    
-    func test_canNotRoll2ndTime() {
-        frame.roll2 = 4
+            context("starts from one roll") {
+                it("save 1st roll") {
+                    XCTAssertEqual(frame.roll1, 4)
+                }
+                
+                it("2nd roll is nil") {
+                    XCTAssertNil(frame.roll2)
+                }
+                
+                it("is not finished") {
+                    XCTAssertFalse(frame.isFinished)
+                }
+            }
+            
+            context("when roll 2nd time") {
+                beforeEach {
+                    frame.roll2 = 3
+                }
+                
+                it("has 2nd roll") {
+                    XCTAssertEqual(frame.roll2, 3)
+                }
+                
+                it("score is summ of two rolls") {
+                    XCTAssertEqual(frame.score, 7)
+                }
+                
+                it("frame is finished") {
+                    XCTAssertTrue(frame.isFinished)
+                }
+                
+                it("is not spare") {
+                    XCTAssertFalse(frame.isSpare)
+                }
+            }
+            
+            context("when sum of two rolls more than 10") {
+                beforeEach {
+                    frame.roll2 = 10
+                }
+                
+                it("should limit by 10") {
+                    XCTAssertEqual(frame.score, 10)
+                }
+            }
+        }
         
-        XCTAssertEqual(10, frame.score)
-    }
-    
-    func test_spareIsFalse() {
-        XCTAssertFalse(frame.isSpare)
+        describe("spare") {
+            var frame: Frame!
+            beforeEach {
+                frame = Frame(roll1: 4)
+            }
+            
+            context("starts from one roll") {
+                it("is not a strike") {
+                    XCTAssertFalse(frame.isStrike)
+                }
+            }
+            
+            
+            context("when 2nd roll hit all elapsed pins") {
+                beforeEach {
+                    frame.roll2 = 6
+                }
+                
+                it("is spare") {
+                    XCTAssertTrue(frame.isSpare)
+                }
+            }
+        }
+        
+        describe("strike") {
+            context("when all pins is hit by 1st roll") {
+                let frame = Frame(roll1: 10)
+                
+                it("is strike") {
+                    XCTAssertTrue(frame.isStrike)
+                }
+                
+                it("finishes frame") {
+                    XCTAssertTrue(frame.isFinished)
+                }
+                
+                it("not a spare") {
+                    XCTAssertFalse(frame.isSpare)
+                }
+                
+                context("when roll 2nd time") {
+                    it("score is stay 10") {
+                        XCTAssertEqual(frame.score, 10)
+                    }
+                    
+                    it("2nd roll is not saved") {
+                        XCTAssertNil(frame.roll2)
+                    }
+                }
+            }
+        }
     }
 }
