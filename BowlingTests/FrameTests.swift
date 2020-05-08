@@ -10,6 +10,7 @@ import XCTest
 @testable import Bowling
 
 import Quick
+import Nimble
 
 class FrameSpec: QuickSpec {
     override func spec() {
@@ -21,15 +22,15 @@ class FrameSpec: QuickSpec {
 
             context("starts from one roll") {
                 it("save 1st roll") {
-                    XCTAssertEqual(frame.roll1, 4)
+                    expect(frame.roll1) == 4
                 }
                 
                 it("2nd roll is nil") {
-                    XCTAssertNil(frame.roll2)
+                    expect(frame.roll2).to(beNil())
                 }
                 
                 it("is not finished") {
-                    XCTAssertFalse(frame.isFinished)
+                    expect(frame.isFinished) == false
                 }
             }
             
@@ -39,19 +40,19 @@ class FrameSpec: QuickSpec {
                 }
                 
                 it("has 2nd roll") {
-                    XCTAssertEqual(frame.roll2, 3)
+                    expect(frame.roll2) == 3
                 }
                 
                 it("score is summ of two rolls") {
-                    XCTAssertEqual(frame.score, 7)
+                    expect(frame.score) == 7
                 }
                 
                 it("frame is finished") {
-                    XCTAssertTrue(frame.isFinished)
+                    expect(frame.isFinished) == true
                 }
                 
                 it("is not spare") {
-                    XCTAssertFalse(frame.isSpare)
+                    expect(frame.isSpare) == false
                 }
             }
             
@@ -61,7 +62,7 @@ class FrameSpec: QuickSpec {
                 }
                 
                 it("should limit by 10") {
-                    XCTAssertEqual(frame.score, 10)
+                    expect(frame.score) == 10
                 }
             }
         }
@@ -74,7 +75,7 @@ class FrameSpec: QuickSpec {
             
             context("starts from one roll") {
                 it("is not a strike") {
-                    XCTAssertFalse(frame.isStrike)
+                    expect(frame.isStrike) == false
                 }
             }
             
@@ -85,7 +86,7 @@ class FrameSpec: QuickSpec {
                 }
                 
                 it("is spare") {
-                    XCTAssertTrue(frame.isSpare)
+                    expect(frame.isSpare) == true
                 }
             }
         }
@@ -95,24 +96,24 @@ class FrameSpec: QuickSpec {
                 let frame = Frame(roll1: 10)
                 
                 it("is strike") {
-                    XCTAssertTrue(frame.isStrike)
+                    expect(frame.isStrike) == true
                 }
                 
                 it("finishes frame") {
-                    XCTAssertTrue(frame.isFinished)
+                    expect(frame.isFinished) == true
                 }
                 
                 it("not a spare") {
-                    XCTAssertFalse(frame.isSpare)
+                    expect(frame.isSpare) == false
                 }
                 
                 context("when roll 2nd time") {
                     it("score is stay 10") {
-                        XCTAssertEqual(frame.score, 10)
+                        expect(frame.score) == 10
                     }
                     
                     it("2nd roll is not saved") {
-                        XCTAssertNil(frame.roll2)
+                        expect(frame.roll2).to(beNil())
                     }
                 }
             }
