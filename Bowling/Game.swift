@@ -11,50 +11,31 @@ import Foundation
 class Game {
     
     var score: Int {
-        var score = 0
-        for (index, frame) in frames.enumerated() {
-            score += frame.score
-            score += additionalScoreForNextFrame(after: index)
-        }
-        
-        return score
+        let scoreboard = ScoreBoard(rollboard: rollboard)
+        return scoreboard.score
     }
     
     func roll(_ pins: Int) {
-        if framesAreFinished {
-            let lastFrame = frames.last!
-            if lastFrame.isStrike || lastFrame.isSpare {
-                additionallRoll = pins
-            }
+        if rollboard.framesAreFinished {
+            rollboard.addAdditionalFrameIfPossible(pins)
         } else {
-            appendOrCreateFrame(pins)
+            rollboard.appendOrCreateFrame(pins)
         }
     }
-    
-    private var framesAreFinished: Bool {
-        return frames.count == 10 && frames.last!.isFinished
-    }
-    
+
     var isFinished: Bool {
-        if framesAreFinished {
-            if frames.last?.isStrike ?? false {
-                return additionallRoll != nil
-            } else {
-                return true
-            }
-        }
-        return false
+        return rollboard.isFinished
     }
     
-    private var additionallRoll: Int?
+    let rollboard = RollBoard()
+}
+
+class RollBoard {
+    private(set) var frames: [Frame] = []
+    private(set) var additionallRoll: Int?
+    private(set) var additionallRoll2: Int?
     
-    private func frame(after index: Int) -> Frame? {
-        let nextIndex = index + 1
-        guard nextIndex < frames.count else { return nil }
-        return frames[nextIndex]
-    }
-    
-    private func appendOrCreateFrame(_ pins: Int) {
+    func appendOrCreateFrame(_ pins: Int) {
         if var lastFrame = frames.last, !lastFrame.isFinished {
             lastFrame.roll2 = pins
             frames[frames.count - 1] = lastFrame
@@ -64,15 +45,74 @@ class Game {
         }
     }
     
-    private func additionalScoreForNextFrame(after index: Int) -> Int {
-        let nextFrame = frame(after: index)
+    func addAdditionalFrameIfPossible(_ pins: Int) {
+        let lastFrame = frames.last!
+        if lastFrame.isStrike || lastFrame.isSpare {
+            if additionallRoll == nil {
+                additionallRoll = pins
+            } else {
+                if additionallRoll2 == nil {
+                    additionallRoll2 = pins
+                }
+            }
+        }
+    }
+    
+    var isFinished: Bool {
+        if framesAreFinished {
+            let lastFrame = frames.last!
+            
+            if lastFrame.isStrike {
+                return additionallRoll != nil && additionallRoll2 != nil
+            }
+            
+            if lastFrame.isSpare {
+                return additionallRoll != nil
+            }
+            
+            return true
+        }
+        return false
+    }
+    
+    var framesAreFinished: Bool {
+        return frames.count == 10 && frames.last!.isFinished
+    }
+    
+    func frame(after index: Int) -> Frame? {
+        let nextIndex = index + 1
+        guard nextIndex < frames.count else { return nil }
+        return frames[nextIndex]
+    }
+}
+
+class ScoreBoard {
+    init(rollboard: RollBoard) {
+        self.rollboard = rollboard
+    }
+    private let rollboard: RollBoard
+    
+    var score: Int {
+        var score = 0
+        for (index, frame) in rollboard.frames.enumerated() {
+            score += frame.score
+            score += bonusForNextFrame(after: index)
+        }
+
+        return score
+    }
+    
+    private func bonusForNextFrame(after index: Int) -> Int {
+        let nextFrame = rollboard.frame(after: index)
         
-        switch frames[index].type {
+        let additionallRoll = rollboard.additionallRoll
+        
+        switch rollboard.frames[index].type {
         case .spare:
-            return nextFrame?.roll1 ?? additionallRoll ?? 0
+            return nextFrame?.roll1 ?? ((additionallRoll ?? 0) * 2)
         case .strike:
             if let nextFrame = nextFrame, nextFrame.isStrike {
-                if let next2Frame = frame(after: index + 1) {
+                if let next2Frame = rollboard.frame(after: index + 1) {
                     return 10 + next2Frame.roll1
                 } else {
                     return 10 + (additionallRoll ?? 0)
@@ -86,6 +126,4 @@ class Game {
             return 0
         }
     }
-    
-    private var frames: [Frame] = []
 }
