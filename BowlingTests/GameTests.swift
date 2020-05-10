@@ -240,7 +240,7 @@ class GameSpec: QuickSpec {
             }
         }
         
-        #warning("add output: split, faulse and faul. ")
+        #warning("add output: split, false and foul. ")
     }
 }
 

@@ -118,11 +118,11 @@ class ScoreBoard {
                     return 10 + (additionallRoll ?? 0)
                 }
             } else if (additionallRoll ?? 0) == 10 {
-                return 10 + (additionallRoll ?? 0)
+                return 10 + additionallRoll!
             } else {
                 return nextFrame?.score ?? additionallRoll ?? 0
             }
-        case .regular:
+        case .open:
             return 0
         }
     }

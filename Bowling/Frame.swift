@@ -49,7 +49,7 @@ struct Frame {
             return .spare
         }
         
-        return .regular
+        return .open
     }
     
     var score: Int {
@@ -59,7 +59,7 @@ struct Frame {
     private let maxScore = 10
     
     enum ScoreType {
-        case regular
+        case open
         case spare
         case strike
     }
