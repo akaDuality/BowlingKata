@@ -10,21 +10,25 @@ import Foundation
 
 struct Frame {
     var roll1: Int
-    var roll2: Int? = nil {
-        didSet {
-            let max2ndValue = maxScore - roll1
-            
-            if isStrike {
-                roll2 = nil
-            } else if roll2! > max2ndValue {
-                roll2 = max2ndValue
-            }
-        }
-    }
+    private(set) var roll2: Int? = nil
     
     init(roll1: Int) {
         self.roll1 = min(10, roll1)
     }
+    
+    mutating func addRoll(_ roll2: Int?) {
+        if isStrike {
+            self.roll2 = nil
+        } else {
+            if let roll2 = roll2 {
+                self.roll2 = min(roll2, max2ndValue)
+            } else {
+                self.roll2 = nil
+            }
+        }
+    }
+    
+    private var max2ndValue: Int { maxScore - roll1 }
     
     var isFinished: Bool {
         return roll2 != nil || isStrike

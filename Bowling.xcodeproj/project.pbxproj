@@ -15,6 +15,7 @@
 		1302AFA3231D30CE00BC45FD /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1302AFA2231D30CE00BC45FD /* Frame.swift */; };
 		1E0CFC2D246569B300CB466A /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 1E0CFC2C246569B300CB466A /* Quick */; };
 		1E0CFC30246573E300CB466A /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 1E0CFC2F246573E300CB466A /* Nimble */; };
+		1EB6AFB62469F31C0004B355 /* RollBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB6AFB52469F31C0004B355 /* RollBoard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		1302AF9E231D1C7100BC45FD /* GameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTests.swift; sourceTree = "<group>"; };
 		1302AFA0231D30C700BC45FD /* FrameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameTests.swift; sourceTree = "<group>"; };
 		1302AFA2231D30CE00BC45FD /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		1EB6AFB52469F31C0004B355 /* RollBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RollBoard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				1302AF84231D1C2800BC45FD /* Bowling.h */,
 				1302AF9B231D1C4D00BC45FD /* Game.swift */,
 				1302AFA2231D30CE00BC45FD /* Frame.swift */,
+				1EB6AFB52469F31C0004B355 /* RollBoard.swift */,
 				1302AF85231D1C2800BC45FD /* Info.plist */,
 			);
 			path = Bowling;
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1302AF9C231D1C4D00BC45FD /* Game.swift in Sources */,
+				1EB6AFB62469F31C0004B355 /* RollBoard.swift in Sources */,
 				1302AFA3231D30CE00BC45FD /* Frame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

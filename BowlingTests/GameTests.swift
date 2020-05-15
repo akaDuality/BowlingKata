@@ -217,6 +217,10 @@ class GameSpec: QuickSpec {
                         it("should not finish game") {
                             expect(game.isFinished) == false
                         }
+                        
+                        it("should score 290") {
+                            expect(game.score) == 290
+                        }
 
                         context("when perform 2nd stike") {
                             beforeEach {

@@ -35,7 +35,7 @@ class FrameSpec: QuickSpec {
             
             context("when roll 2nd time") {
                 beforeEach {
-                    frame.roll2 = 3
+                    frame.addRoll(3)
                 }
                 
                 it("has 2nd roll") {
@@ -57,7 +57,7 @@ class FrameSpec: QuickSpec {
             
             context("when sum of two rolls more than 10") {
                 beforeEach {
-                    frame.roll2 = 10
+                    frame.addRoll(10)
                 }
                 
                 it("should limit by 10") {
@@ -81,7 +81,7 @@ class FrameSpec: QuickSpec {
             
             context("when 2nd roll hit all elapsed pins") {
                 beforeEach {
-                    frame.roll2 = 6
+                    frame.addRoll(6)
                 }
                 
                 it("is spare") {
