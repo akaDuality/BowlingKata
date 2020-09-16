@@ -33,8 +33,11 @@ class GameSpec: QuickSpec {
                 }
                 
                 context("and roll 4") {
-                    it("should add roll to score") {
+                    beforeEach {
                         game.roll(4)
+                    }
+                    
+                    it("should add roll to score") {
                         expect(game.score) == 9
                     }
                 }
@@ -48,7 +51,7 @@ class GameSpec: QuickSpec {
                 
                 it("should double next roll") {
                     game.roll(6)
-                    expect(game.score) == 4 + 6 + 6 * 2
+                    expect(game.score) == (4 + 6) + (6*2)
                 }
                 
                 context("when next 2 roll also spare") {
@@ -57,8 +60,7 @@ class GameSpec: QuickSpec {
                     }
                     
                     it("should double 3rd roll, not frame score") {
-                        let score: Int = (4 + 6) + (6*2 + 4)
-                        expect(game.score) == score
+                        expect(game.score) == (4 + 6) + (6*2 + 4)
                     }
                     
                     context("when roll 2") {
@@ -67,7 +69,7 @@ class GameSpec: QuickSpec {
                         }
                         
                         it("should double") {
-                            let score: Int = (4 + 6) + (6*2 + 4) + 2*2
+                            let score: Int = (4 + 6) + (6*2 + 4) + (2*2)
                             expect(game.score) == score
                         }
                     }
