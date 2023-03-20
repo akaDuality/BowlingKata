@@ -149,10 +149,12 @@ class GameTests: XCTestCase {
     // MARK: - Setup
     private var game: Game!
     override func setUp() {
+        super.setUp()
         game = Game()
     }
     
     override func tearDown() {
         game = nil
+        super.tearDown()
     }
 }
